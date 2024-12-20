@@ -111,18 +111,18 @@ const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAI
 
 <script>
       const list = [
-      "banner/miku01.webp",
-      "banner/miku03.webp",
-      "banner/miku04.webp",
-      "banner/miku06.webp",
-      "banner/miku07.webp"
+      "/banner/miku01.webp",
+      "/banner/miku03.webp",
+      "/banner/miku04.webp",
+      "/banner/miku06.webp",
+      "/banner/miku07.webp"
     ]
     let index = 0
     let time = 15000
 
       function fade() {
         const img = document.querySelector('#banner img') as HTMLImageElement
-        img.src = list[++index % (list.length - 1)]
+        img.src = list[index++ % (list.length - 1)]
         img.animate([
             {transform: "scale(1)"},
             {transform: "scale(1.2)"}

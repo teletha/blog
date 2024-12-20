@@ -7,7 +7,7 @@ import type {
 import { LinkPreset } from './types/config'
 
 export const siteConfig: SiteConfig = {
-  title: 'これやこ',
+  title: 'Astral Side',
   subtitle: '🤔',
   lang: 'ja',         // 'en', 'zh_CN', 'zh_TW', 'ja', 'ko'
   themeColor: {
@@ -23,14 +23,7 @@ export const siteConfig: SiteConfig = {
       url: ''                // (Optional) URL link to the original artwork or artist's page
     },
     list: [
-      "https://s2.loli.net/2024/11/23/6XtZuKJlM4HArON.webp",
-      "https://s2.loli.net/2024/11/23/zdSABebpUI4XOrP.webp",
-      "https://s2.loli.net/2024/11/23/h1IDjwRbf3Mxqla.webp",
-      "https://s2.loli.net/2024/11/23/CbV2iFMHIAxaJQ8.webp",
-      "https://s2.loli.net/2024/11/23/kGzJ7wqRFbLPXiN.webp",
-      "https://s2.loli.net/2024/11/23/DIGYWarlfgN4Fnq.webp",
-      "https://s2.loli.net/2024/11/23/TlyqvFUjBxbWsDQ.webp",
-      "https://s2.loli.net/2024/08/20/5fszgXeOxmL3Wdv.webp"
+      "/banner/miku01.webp"
     ]
   },
   toc: {
@@ -62,8 +55,13 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
   avatar: 'https://avatars.githubusercontent.com/u/485441',  // Relative to the /src directory. Relative to the /public directory if it starts with '/'
   name: 'Teletha',
-  bio: 'これやこの　行くも帰るも　別れては　知るも知らぬも　逢坂の関',
+  bio: '八奈見ちゃん、蕩れ',
   links: [
+    {
+      name: 'Youtube',
+      icon: 'fa6-brands:youtube',
+      url: 'https://www.youtube.com/watch?v=wWdpXZvJ5uM',
+    },
     {
       name: 'Twitter',
       icon: 'fa6-brands:twitter',
