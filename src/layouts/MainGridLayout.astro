@@ -22,10 +22,8 @@ interface Props {
 const { title, description, lang, setOGTypeArticle, headings = [] } = Astro.props
 const hasBannerCredit = siteConfig.banner.enable && siteConfig.banner.credit.enable
 const hasBannerLink = !!siteConfig.banner.credit.url
-const selectedBanner = siteConfig.banner.list[Math.floor(Math.random() * siteConfig.banner.list.length)]
+const selectedBanner = siteConfig.banner.list[0]
 const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)` : '5.5rem'
-
-const bannerList = siteConfig.banner.list
 ---
 
 <Layout title={title} banner={selectedBanner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
@@ -130,9 +128,10 @@ const bannerList = siteConfig.banner.list
         img.style.opacity = "0"
 
         setTimeout(() => {
-            img.src = list[++index % list.length]
+            console.log(index)
+            img.src = list[++index % (list.length - 1)]
             img.style.transition = "opacity 2.4s"
             img.style.opacity = "1"
         }, 600)
-    }, 30000)
+    }, 5000)
 </script>
