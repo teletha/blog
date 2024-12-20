@@ -118,17 +118,32 @@ const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAI
       "banner/miku07.webp"
     ]
     let index = 0
+    let time = 15000
 
-      setInterval(() => {
+      function fade() {
         const img = document.querySelector('#banner img') as HTMLImageElement
-        img.style.transition = "opacity 0.6s"
-        img.style.opacity = "0"
+        img.src = list[++index % (list.length - 1)]
+        img.animate([
+            {transform: "scale(1)"},
+            {transform: "scale(1.2)"}
+        ], {
+            duration: time,
+            easing: "linear",
+            fill: "forwards"
+        })
 
-        setTimeout(() => {
-            console.log(index)
-            img.src = list[++index % (list.length - 1)]
-            img.style.transition = "opacity 2.4s"
-            img.style.opacity = "1"
-        }, 600)
-    }, 5000)
+        img.animate([
+            {opacity: 0, offset: 0},
+            {opacity: 0, offset: 0.01},
+            {opacity: 1, offset: 0.08},
+            {opacity: 1, offset: 0.97},
+            {opacity: 0, offset: 1}
+        ], {
+            duration: time,
+            easing: "linear",
+            fill: "forwards"
+        })
+    }
+    fade()
+    setInterval(fade, time)
 </script>

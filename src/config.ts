@@ -18,8 +18,8 @@ export const siteConfig: SiteConfig = {
     enable: true,
     position: 'center',      // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
     credit: {
-      enable: true,         // Display the credit text of the banner image
-      text: 'Sakura Miku',              // Credit text to be displayed
+      enable: false,         // Display the credit text of the banner image
+      text: '',              // Credit text to be displayed
       url: ''                // (Optional) URL link to the original artwork or artist's page
     },
     list: [
