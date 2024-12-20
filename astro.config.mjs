@@ -21,7 +21,7 @@ import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://teletha.github.io/apocrypha/',
+  site: 'https://blog-230.pages.dev',
   base: '/',
   trailingSlash: 'always',
   integrations: [
@@ -116,10 +116,7 @@ export default defineConfig({
       rollupOptions: {
         onwarn(warning, warn) {
           // temporarily suppress this warning
-          if (
-            warning.message.includes('is dynamically imported by') &&
-            warning.message.includes('but also statically imported by')
-          ) {
+          if (warning.message.includes('is dynamically imported by') && warning.message.includes('but also statically imported by')) {
             return
           }
           warn(warning)

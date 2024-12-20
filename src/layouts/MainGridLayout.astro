@@ -3,32 +3,32 @@ import Footer from '@components/Footer.astro'
 import Navbar from '@components/Navbar.astro'
 import BackToTop from '@components/control/BackToTop.astro'
 import SideBar from '@components/widget/SideBar.astro'
-import Layout from './Layout.astro'
-import { Icon } from 'astro-icon/components'
-import { siteConfig } from '../config'
 import type { MarkdownHeading } from 'astro'
-import TOC from "../components/widget/TOC.astro";
-import ImageWrapper from "../components/misc/ImageWrapper.astro";
-import {BANNER_HEIGHT, BANNER_HEIGHT_EXTEND, MAIN_PANEL_OVERLAPS_BANNER_HEIGHT} from "../constants/constants";
+import { Icon } from 'astro-icon/components'
+import ImageWrapper from '../components/misc/ImageWrapper.astro'
+import TOC from '../components/widget/TOC.astro'
+import { siteConfig } from '../config'
+import { BANNER_HEIGHT, BANNER_HEIGHT_EXTEND, MAIN_PANEL_OVERLAPS_BANNER_HEIGHT } from '../constants/constants'
+import Layout from './Layout.astro'
 
 interface Props {
   title?: string
-  banner?: string
   description?: string
   lang?: string
-  setOGTypeArticle?: boolean;
-  headings? : MarkdownHeading[]
+  setOGTypeArticle?: boolean
+  headings?: MarkdownHeading[]
 }
 
-const { title, banner, description, lang, setOGTypeArticle, headings = [] } = Astro.props
-const hasBannerCredit =
-  siteConfig.banner.enable && siteConfig.banner.credit.enable
+const { title, description, lang, setOGTypeArticle, headings = [] } = Astro.props
+const hasBannerCredit = siteConfig.banner.enable && siteConfig.banner.credit.enable
 const hasBannerLink = !!siteConfig.banner.credit.url
+const selectedBanner = siteConfig.banner.list[Math.floor(Math.random() * siteConfig.banner.list.length)]
+const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)` : '5.5rem'
 
-const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)` : "5.5rem"
+const bannerList = siteConfig.banner.list
 ---
 
-<Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
+<Layout title={title} banner={selectedBanner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
 
 <!-- Navbar -->
 <slot slot="head" name="head"></slot>
@@ -41,7 +41,7 @@ const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAI
 <!-- Banner -->
 {siteConfig.banner.enable && <div id="banner-wrapper" class=`absolute z-10 w-full transition duration-700 overflow-hidden` style=`top: -${BANNER_HEIGHT_EXTEND}vh`>
     <ImageWrapper id="banner" alt="Banner image of the blog" class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
-                  src={siteConfig.banner.src} position={siteConfig.banner.position}
+                  src={selectedBanner} position={siteConfig.banner.position}
     >
     </ImageWrapper>
 </div>}
@@ -110,3 +110,29 @@ const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAI
     </div>
 </div>
 </Layout>
+
+<script>
+      const list = [
+      "https://s2.loli.net/2024/11/23/6XtZuKJlM4HArON.webp",
+      "https://s2.loli.net/2024/11/23/zdSABebpUI4XOrP.webp",
+      "https://s2.loli.net/2024/11/23/h1IDjwRbf3Mxqla.webp",
+      "https://s2.loli.net/2024/11/23/CbV2iFMHIAxaJQ8.webp",
+      "https://s2.loli.net/2024/11/23/kGzJ7wqRFbLPXiN.webp",
+      "https://s2.loli.net/2024/11/23/DIGYWarlfgN4Fnq.webp",
+      "https://s2.loli.net/2024/11/23/TlyqvFUjBxbWsDQ.webp",
+      "https://s2.loli.net/2024/08/20/5fszgXeOxmL3Wdv.webp"
+    ]
+    let index = 0
+
+      setInterval(() => {
+        const img = document.querySelector('#banner img') as HTMLImageElement
+        img.style.transition = "opacity 0.6s"
+        img.style.opacity = "0"
+
+        setTimeout(() => {
+            img.src = list[++index % list.length]
+            img.style.transition = "opacity 2.4s"
+            img.style.opacity = "1"
+        }, 600)
+    }, 30000)
+</script>

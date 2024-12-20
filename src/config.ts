@@ -16,13 +16,22 @@ export const siteConfig: SiteConfig = {
   },
   banner: {
     enable: true,
-    src: 'https://s2.loli.net/2024/08/20/5fszgXeOxmL3Wdv.webp',   // Relative to the /src directory. Relative to the /public directory if it starts with '/'
     position: 'center',      // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
     credit: {
       enable: true,         // Display the credit text of the banner image
       text: 'Sakura Miku',              // Credit text to be displayed
       url: ''                // (Optional) URL link to the original artwork or artist's page
-    }
+    },
+    list: [
+      "https://s2.loli.net/2024/11/23/6XtZuKJlM4HArON.webp",
+      "https://s2.loli.net/2024/11/23/zdSABebpUI4XOrP.webp",
+      "https://s2.loli.net/2024/11/23/h1IDjwRbf3Mxqla.webp",
+      "https://s2.loli.net/2024/11/23/CbV2iFMHIAxaJQ8.webp",
+      "https://s2.loli.net/2024/11/23/kGzJ7wqRFbLPXiN.webp",
+      "https://s2.loli.net/2024/11/23/DIGYWarlfgN4Fnq.webp",
+      "https://s2.loli.net/2024/11/23/TlyqvFUjBxbWsDQ.webp",
+      "https://s2.loli.net/2024/08/20/5fszgXeOxmL3Wdv.webp"
+    ]
   },
   toc: {
     enable: true,           // Display the table of contents on the right side of the post
