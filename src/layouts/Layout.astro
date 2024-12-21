@@ -4,27 +4,26 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
 import { profileConfig, siteConfig } from '@/config'
-import ConfigCarrier from '@components/ConfigCarrier.astro'
 import {
-  AUTO_MODE,
-  BANNER_HEIGHT,
-  BANNER_HEIGHT_EXTEND,
-  BANNER_HEIGHT_HOME,
-  DARK_MODE,
-  DEFAULT_THEME,
-  LIGHT_MODE,
-  PAGE_WIDTH,
+    AUTO_MODE,
+    BANNER_HEIGHT,
+    BANNER_HEIGHT_EXTEND,
+    BANNER_HEIGHT_HOME,
+    DARK_MODE,
+    DEFAULT_THEME,
+    LIGHT_MODE,
+    PAGE_WIDTH,
 } from '../constants/constants'
 import { defaultFavicons } from '../constants/icon'
 import type { Favicon } from '../types/config'
 import { url, pathsEqual } from '../utils/url-utils'
 
 interface Props {
-  title?: string
-  banner?: string
-  description?: string
-  lang?: string
-  setOGTypeArticle?: boolean
+    title?: string
+    banner?: string
+    description?: string
+    lang?: string
+    setOGTypeArticle?: boolean
 }
 
 let { title, banner, description, lang, setOGTypeArticle } = Astro.props
@@ -41,23 +40,23 @@ const enableBanner = siteConfig.banner.enable
 
 let pageTitle: string
 if (title) {
-  pageTitle = `${title} - ${siteConfig.title}`
+    pageTitle = `${title} - ${siteConfig.title}`
 } else {
-  pageTitle = `${siteConfig.title}`
+    pageTitle = `${siteConfig.title}`
 }
 
 const favicons: Favicon[] = siteConfig.favicon.length > 0 ? siteConfig.favicon : defaultFavicons
 
 // const siteLang = siteConfig.lang.replace('_', '-')
 if (!lang) {
-  lang = `${siteConfig.lang}`
+    lang = `${siteConfig.lang}`
 }
 const siteLang = lang.replace('_', '-')
 
 const bannerOffsetByPosition = {
-  top: `${BANNER_HEIGHT_EXTEND}vh`,
-  center: `${BANNER_HEIGHT_EXTEND / 2}vh`,
-  bottom: '0',
+    top: `${BANNER_HEIGHT_EXTEND}vh`,
+    center: `${BANNER_HEIGHT_EXTEND / 2}vh`,
+    bottom: '0',
 }
 const bannerOffset = bannerOffsetByPosition[siteConfig.banner.position || 'center']
 ---
@@ -134,26 +133,17 @@ const bannerOffset = bannerOffsetByPosition[siteConfig.banner.position || 'cente
 
 		<slot name="head"></slot>
 		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
-
 	</head>
-	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
-		  data-overlayscrollbars-initialize
-	>
-		<ConfigCarrier></ConfigCarrier>
+	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]} data-overlayscrollbars-initialize>
 		<slot />
-
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
 	</body>
 </html>
 
-<style is:global define:vars={{
-	bannerOffset,
-	'banner-height-home': `${BANNER_HEIGHT_HOME}vh`,
-	'banner-height': `${BANNER_HEIGHT}vh`,
-}}>
-@tailwind components;
-@layer components {
+<style is:global define:vars={{bannerOffset, 'banner-height-home': `${BANNER_HEIGHT_HOME}vh`, 'banner-height': `${BANNER_HEIGHT}vh`}}>
+	@tailwind components;
+	@layer components {
 	.enable-banner.is-home #banner-wrapper {
 		@apply h-[var(--banner-height-home)] translate-y-[var(--banner-height-extend)]
 	}
@@ -184,12 +174,7 @@ const bannerOffset = bannerOffsetByPosition[siteConfig.banner.position || 'cente
 
 <script>
 import 'overlayscrollbars/overlayscrollbars.css';
-import {
-	OverlayScrollbars,
-	// ScrollbarsHidingPlugin,
-	// SizeObserverPlugin,
-	// ClickScrollPlugin
-} from 'overlayscrollbars';
+import {OverlayScrollbars} from 'overlayscrollbars';
 import {getHue, getStoredTheme, setHue, setTheme} from "../utils/setting-utils";
 import {pathsEqual, url} from "../utils/url-utils";
 import {
@@ -218,7 +203,6 @@ function setClickOutsideToClose(panel: string, ignores: string[]) {
 }
 setClickOutsideToClose("display-setting", ["display-setting", "display-settings-switch"])
 setClickOutsideToClose("nav-menu-panel", ["nav-menu-panel", "nav-menu-switch"])
-setClickOutsideToClose("search-panel", ["search-panel", "search-bar", "search-switch"])
 
 
 function loadTheme() {

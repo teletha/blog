@@ -4,53 +4,54 @@ import { getSortedPosts } from '../utils/content-utils'
 import { getPostUrlBySlug } from '../utils/url-utils'
 
 interface Props {
-  keyword?: string
-  tags?: string[]
-  categories?: string[]
+    keyword?: string
+    tags?: string[]
+    categories?: string[]
 }
 const { keyword, tags, categories } = Astro.props
 
 let posts = await getSortedPosts()
 
 if (Array.isArray(tags) && tags.length > 0) {
-  posts = posts.filter(post => Array.isArray(post.data.tags) && post.data.tags.some(tag => tags.includes(tag)))
+    posts = posts.filter(post => Array.isArray(post.data.tags) && post.data.tags.some(tag => tags.includes(tag)))
 }
 
 if (Array.isArray(categories) && categories.length > 0) {
-  posts = posts.filter(
-    post => (post.data.category && categories.includes(post.data.category)) || (!post.data.category && categories.includes(UNCATEGORIZED)),
-  )
+    posts = posts.filter(
+        post =>
+            (post.data.category && categories.includes(post.data.category)) || (!post.data.category && categories.includes(UNCATEGORIZED)),
+    )
 }
 
 const groups: { year: number; posts: typeof posts }[] = (() => {
-  const groupedPosts = posts.reduce((grouped: { [year: number]: typeof posts }, post) => {
-    const year = post.data.published.getFullYear()
-    if (!grouped[year]) {
-      grouped[year] = []
-    }
-    grouped[year].push(post)
-    return grouped
-  }, {})
+    const groupedPosts = posts.reduce((grouped: { [year: number]: typeof posts }, post) => {
+        const year = post.data.published.getFullYear()
+        if (!grouped[year]) {
+            grouped[year] = []
+        }
+        grouped[year].push(post)
+        return grouped
+    }, {})
 
-  // convert the object to an array
-  const groupedPostsArray = Object.keys(groupedPosts).map(key => ({
-    year: Number.parseInt(key),
-    posts: groupedPosts[Number.parseInt(key)],
-  }))
+    // convert the object to an array
+    const groupedPostsArray = Object.keys(groupedPosts).map(key => ({
+        year: Number.parseInt(key),
+        posts: groupedPosts[Number.parseInt(key)],
+    }))
 
-  // sort years by latest first
-  groupedPostsArray.sort((a, b) => b.year - a.year)
-  return groupedPostsArray
+    // sort years by latest first
+    groupedPostsArray.sort((a, b) => b.year - a.year)
+    return groupedPostsArray
 })()
 
 function formatDate(date: Date) {
-  const month = (date.getMonth() + 1).toString().padStart(2, '0')
-  const day = date.getDate().toString().padStart(2, '0')
-  return `${month}-${day}`
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+    return `${month}-${day}`
 }
 
 function formatTag(tag: string[]) {
-  return tag.map(t => `#${t}`).join(' ')
+    return tag.map(t => `#${t}`).join(' ')
 }
 ---
 
@@ -86,18 +87,8 @@ function formatTag(tag: string[]) {
                                 "
                                 ></div>
                             </div>
-                            <!-- post title -->
-                            <div class="w-[70%] md:max-w-[65%] md:w-[65%] text-left font-bold
-                                group-hover:translate-x-1 transition-all group-hover:text-[var(--primary)]
-                                text-75 pr-8 whitespace-nowrap overflow-ellipsis overflow-hidden"
-                            >
-                                    {post.data.title}
-                            </div>
-                            <!-- tag list -->
-                            <div class="hidden md:block md:w-[15%] text-left text-sm transition
-                            whitespace-nowrap overflow-ellipsis overflow-hidden
-                            text-30"
-                            >{formatTag(post.data.tags)}</div>
+                            <div class="w-[70%] md:max-w-[65%] md:w-[65%] text-left font-bold group-hover:translate-x-1 transition-all group-hover:text-[var(--primary)] text-75 pr-8 whitespace-nowrap overflow-ellipsis overflow-hidden">{post.data.title}</div>
+                            <div class="hidden md:block md:w-[15%] text-left text-sm transition whitespace-nowrap overflow-ellipsis overflow-hidden text-30">{formatTag(post.data.tags)}</div>
                         </div>
                     </a>
                 ))}

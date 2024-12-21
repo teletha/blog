@@ -12,11 +12,11 @@ import { BANNER_HEIGHT, BANNER_HEIGHT_EXTEND, MAIN_PANEL_OVERLAPS_BANNER_HEIGHT 
 import Layout from './Layout.astro'
 
 interface Props {
-  title?: string
-  description?: string
-  lang?: string
-  setOGTypeArticle?: boolean
-  headings?: MarkdownHeading[]
+    title?: string
+    description?: string
+    lang?: string
+    setOGTypeArticle?: boolean
+    headings?: MarkdownHeading[]
 }
 
 const { title, description, lang, setOGTypeArticle, headings = [] } = Astro.props
