@@ -18,7 +18,7 @@ export const ja: Translation = {
   [Key.noTags]: 'タグなし',
 
   [Key.wordCount]: '文字',
-  [Key.wordsCount]: '文字',
+  [Key.wordsCount]: '単語',
   [Key.minuteCount]: '分',
   [Key.minutesCount]: '分',
   [Key.postCount]: '件の投稿',

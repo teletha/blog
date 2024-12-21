@@ -42,6 +42,49 @@ const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAI
                   src={selectedBanner} position={siteConfig.banner.position}
     >
     </ImageWrapper>
+    <div class="waves" id="header-waves">
+    <svg
+        class="waves"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28"
+        preserveAspectRatio="none"
+        shape-rendering="auto"
+    >
+        <defs>
+        <path
+            id="gentle-wave"
+            d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+        >
+        </path>
+        </defs>
+        <g class="parallax">
+        <use
+            xlink:href="#gentle-wave"
+            x="48"
+            y="0"
+            class="opacity-25"
+            style={{ animationDelay: "-2s", animationDuration: "7s" }}></use>
+        <use
+            xlink:href="#gentle-wave"
+            x="48"
+            y="3"
+            class="opacity-50"
+            style={{ animationDelay: "-3s", animationDuration: "10s" }}></use>
+        <use
+            xlink:href="#gentle-wave"
+            x="48"
+            y="5"
+            class="opacity-75"
+            style={{ animationDelay: "-4s", animationDuration: "13s" }}></use>
+        <use
+            xlink:href="#gentle-wave"
+            x="48"
+            y="7"
+            style={{ animationDelay: "-5s", animationDuration: "20s" }}></use>
+        </g>
+    </svg>
+</div>
 </div>}
 
 <!-- Main content -->
@@ -119,31 +162,65 @@ const mainPanelTop = siteConfig.banner.enable ? `calc(${BANNER_HEIGHT}vh - ${MAI
     ]
     let index = 0
     let time = 15000
+    let id:any
 
       function fade() {
         const img = document.querySelector('#banner img') as HTMLImageElement
-        img.src = list[index++ % (list.length - 1)]
-        img.animate([
-            {transform: "scale(1)"},
-            {transform: "scale(1.2)"}
-        ], {
-            duration: time,
-            easing: "linear",
-            fill: "forwards"
-        })
+        img.onload = () => {
+            img.animate([
+                {transform: "scale(1)"},
+                {transform: "scale(1.2)"}
+            ], {
+                duration: time,
+                easing: "linear",
+                fill: "forwards"
+            })
 
-        img.animate([
-            {opacity: 0, offset: 0},
-            {opacity: 0, offset: 0.01},
-            {opacity: 1, offset: 0.08},
-            {opacity: 1, offset: 0.97},
-            {opacity: 0, offset: 1}
-        ], {
-            duration: time,
-            easing: "linear",
-            fill: "forwards"
-        })
+            img.animate([
+                {opacity: 0, offset: 0},
+                {opacity: 0, offset: 0.01},
+                {opacity: 1, offset: 0.08},
+                {opacity: 1, offset: 0.97},
+                {opacity: 0, offset: 1}
+            ], {
+                duration: time,
+                easing: "linear",
+                fill: "forwards"
+            })
+        }
+        img.src = list[index++ % (list.length - 1)]
     }
     fade()
-    setInterval(fade, time)
+    id = setInterval(fade, time)
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            console.log("Start")
+            fade()
+            id = setInterval(fade, time)
+        } else {
+            clearInterval(id)
+        }
+    });
 </script>
+
+<style>
+    .waves {
+        @apply absolute bottom-0 h-[10vh] max-h-[9.375rem] min-h-[3.125rem] w-full;
+        @apply md:h-[15vh];
+    }
+
+    .waves > .parallax use {
+        @apply fill-[var(--page-bg)];
+        animation: wave 25s cubic-bezier(0.5, 0.5, 0.45, 0.5) infinite;
+    }
+
+    @keyframes wave {
+        0% {
+            transform: translate3d(-90px, 0, 0);
+        }
+        100% {
+            transform: translate3d(85px, 0, 0);
+        }
+    }
+</style>
