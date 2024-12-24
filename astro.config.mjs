@@ -55,9 +55,6 @@ export default defineConfig({
         Compress({
             CSS: false,
             Image: false,
-            Action: {
-                Passed: async () => true, // https://github.com/PlayForm/Compress/issues/376
-            },
         }),
     ],
     markdown: {
